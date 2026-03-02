@@ -48,7 +48,6 @@ nav a {
     display: block;
     padding: 14px 22px;
     color: white;
-    text-decoration: none;
     font-weight: bold;
     transition: 0.3s;
 }
@@ -66,8 +65,6 @@ main {
     max-width: 900px;
     margin: 30px auto;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /*Lists*/
@@ -85,5 +82,4 @@ footer {
     padding: 15px;
     background: #4a4e69;
     color: white;
-    border-top: 4px solid #22223b;
 }
