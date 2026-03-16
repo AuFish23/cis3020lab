@@ -1,43 +1,51 @@
-/*Page Layout */
+/* ---------- Global Styles ---------- */
 
-html, body {
-    height: 100%;
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+
+    /* Soft gradient background */
+    background: linear-gradient(135deg, #eef2f7, #d6e4ff);
+
     display: flex;
     flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #708090;
 }
 
-/*Header*/
+/* ---------- Header ---------- */
 
 header {
-    background: #4a4e69;
-    color: white;
-    padding: 25px;
     text-align: center;
-    border-bottom: 4px solid #22223b;
+    padding: 25px;
+    background: linear-gradient(90deg, #3a7bd5, #6dd5ed);
+    color: white;
 }
 
 header h1 {
-    margin: 0;
+    font-size: 2rem;
 }
 
-/*Navigation*/
+header h2 {
+    font-weight: normal;
+}
+
+/* ---------- Navigation ---------- */
 
 nav {
-    background: #22223b;
+    background: #222;
 }
 
 nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
 }
 
 nav li {
@@ -46,39 +54,103 @@ nav li {
 
 nav a {
     display: block;
-    padding: 14px 22px;
+    padding: 15px 25px;
+    text-decoration: none;
     color: white;
-    font-weight: bold;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
+
+/* Hover effect */
 
 nav a:hover {
-    background: #9a8c98;
-    color: #22223b;
+    background: #3a7bd5;
+    transform: translateY(-2px);
 }
 
-/*Main Content*/
+/* ---------- Main Content ---------- */
 
 main {
     flex: 1;
-    padding: 30px;
-    max-width: 900px;
-    margin: 30px auto;
+    padding: 40px;
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+main p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+/* ---------- Image Priority Layout ---------- */
+
+.food-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.food-item {
     background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/*Lists*/
+.food-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 
-ol {
-    line-height: 1.8;
-    font-size: 18px;
+    /* Makes images stand out */
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-/*Footer*/
+.food-item img:hover {
+    transform: scale(1.05);
+}
+
+/* ---------- Footer ---------- */
 
 footer {
-    margin-top: auto;
-    text-align: center;
-    padding: 15px;
-    background: #4a4e69;
+    background: #222;
     color: white;
+    text-align: center;
+    padding: 12px;
+
+    /* Fixed footer */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Prevent footer overlap */
+
+main {
+    padding-bottom: 80px;
+}
+
+/* ---------- Responsive Design ---------- */
+
+@media (max-width: 768px) {
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav a {
+        text-align: center;
+        border-top: 1px solid #444;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    main {
+        padding: 20px;
+    }
 }
