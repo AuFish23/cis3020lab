@@ -1,6 +1,6 @@
 Prompt: 
 
-Create a shared CSS stylesheet for a website with 5 pages. 
+Update my CSS stylesheet for my website with 5 pages. 
 Requirements: 
 - colorful but professional design 
 - responsive layout 
@@ -15,7 +15,7 @@ This should apply to all pages consistently.
 
 
 
-note: I then added the files of my website to the prompt
+note: I then added the files of my website to the prompt, including my previous style sheet.
 
 
 
