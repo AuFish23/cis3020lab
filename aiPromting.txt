@@ -308,3 +308,96 @@ Rounded images
 Rounded footer top
 
 Overall it will look much more modern and less boxy.
+
+
+Prompt 3: can you add some animated elements to the website?
+
+
+Response:
+
+Yes 👍 — you can add simple, professional animations using only CSS. This keeps your site fast and works across all five pages since they share the same stylesheet (styles.css). Your pages already load the stylesheet globally, so any animation added there will apply everywhere.
+
+Below are 4 good animated effects that look professional (not distracting).
+
+1. Smooth Page Fade-In (makes the site feel polished)
+
+Add this to your CSS:
+
+body {
+    animation: fadeInPage 1s ease;
+}
+
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+2. Animated Navigation Hover Glow
+
+Update your nav links:
+
+nav a {
+    display: block;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background: #3a7bd5;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+3. Image Hover Zoom (great for your food images)
+
+Your Top Five page already contains images, so this animation works perfectly there.
+
+.food-item img {
+    width: 100%;
+    border-radius: 18px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.food-item img:hover {
+    transform: scale(1.07);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+4. Floating Header Animation
+
+This adds a very subtle motion to the header.
+
+header {
+    animation: floatHeader 6s ease-in-out infinite;
+}
+
+@keyframes floatHeader {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
+}
+
+5. Card Hover Animation (food list items)
+.food-item {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.food-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+}
+
