@@ -202,3 +202,109 @@ main {
         padding: 20px;
     }
 }
+
+Prompt 2:
+
+Make the rest of the website more rounded. I want less sharp edges, specifcally with the header and navigation links
+
+
+Response:
+To make the site feel softer and more modern, you mainly want to increase the border-radius on the header, navigation bar, links, and content containers. Your pages already use the same structure (header, nav, main, footer), so updating the shared stylesheet will affect all pages consistently.
+
+Rounded Header
+header {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(90deg, #3a7bd5, #6dd5ed);
+    color: white;
+
+    border-radius: 0 0 25px 25px; /* rounded bottom edges */
+    margin-bottom: 10px;
+}
+
+
+Rounded Navigation Bar
+nav {
+    background: #222;
+    margin: 10px auto;
+    width: 90%;
+    max-width: 1000px;
+
+    border-radius: 20px;
+    overflow: hidden; /* keeps child elements rounded */
+}
+
+Rounded Navigation Links
+nav a {
+    display: block;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    border-radius: 12px;
+}
+
+Softer Hover Effect
+nav a:hover {
+    background: #3a7bd5;
+    transform: translateY(-2px) scale(1.03);
+
+
+Rounded Main Content Area
+main {
+    flex: 1;
+    padding: 40px;
+    max-width: 1100px;
+    margin: 30px auto;
+    text-align: center;
+
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+
+Extra Rounded Images
+.food-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+
+Rounded Footer
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 12px;
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    border-radius: 20px 20px 0 0;
+}
+
+
+Result
+
+Your website will now have:
+
+Rounded header bottom
+
+Rounded navigation bar
+
+Rounded navigation buttons
+
+Rounded content containers
+
+Rounded images
+
+Rounded footer top
+
+Overall it will look much more modern and less boxy.
