@@ -1,0 +1,204 @@
+Prompt: 
+
+Create a shared CSS stylesheet for a website with 5 pages. 
+Requirements: 
+- colorful but professional design 
+- responsive layout 
+- navigation bar with hover effects 
+- styled footer fixed at bottom 
+- prioritize viewability for images 
+- soft gradient background 
+- easy to read font 
+
+This should apply to all pages consistently.
+
+
+
+
+note: I then added the files of my website to the prompt
+
+
+
+
+Response:
+Your five pages already link to the same stylesheet (styles.css), so you only need one shared CSS file to style the entire site consistently. 
+For example, your pages reference it like this:
+
+<link rel="stylesheet" href="styles.css">
+
+This appears in each page such as the home page and others.
+
+Below is a complete styles.css file that meets your requirements:
+colorful but professional
+
+responsive layout
+
+hover navigation
+
+fixed footer
+
+image-focused layout
+
+soft gradient background
+
+readable font
+
+works across all 5 pages
+
+Style.css
+/* ---------- Global Styles ---------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+
+    /* Soft gradient background */
+    background: linear-gradient(135deg, #eef2f7, #d6e4ff);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Header ---------- */
+
+header {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(90deg, #3a7bd5, #6dd5ed);
+    color: white;
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+header h2 {
+    font-weight: normal;
+}
+
+/* ---------- Navigation ---------- */
+
+nav {
+    background: #222;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    display: block;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect */
+
+nav a:hover {
+    background: #3a7bd5;
+    transform: translateY(-2px);
+}
+
+/* ---------- Main Content ---------- */
+
+main {
+    flex: 1;
+    padding: 40px;
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+main p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+/* ---------- Image Priority Layout ---------- */
+
+.food-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.food-item {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.food-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+
+    /* Makes images stand out */
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.food-item img:hover {
+    transform: scale(1.05);
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 12px;
+
+    /* Fixed footer */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Prevent footer overlap */
+
+main {
+    padding-bottom: 80px;
+}
+
+/* ---------- Responsive Design ---------- */
+
+@media (max-width: 768px) {
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav a {
+        text-align: center;
+        border-top: 1px solid #444;
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    main {
+        padding: 20px;
+    }
+}
