@@ -13,19 +13,3 @@ toggle.addEventListener('click', () => {
   localStorage.setItem('theme', next);
   toggle.textContent = next === 'dark' ? 'Light mode' : 'Dark mode';
 });
-//const lazyImages = document.querySelectorAll('img.lazy');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const img = entry.target;
-      img.src = img.dataset.src;      
-      img.classList.remove('lazy');  
-      observer.unobserve(img);        
-    }
-  });
-                // trigger when 10% visible
-}, { threshold: 0.1 });  
-
-lazyImages.forEach(img => observer.observe(img));
-
