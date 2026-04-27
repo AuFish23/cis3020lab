@@ -229,7 +229,7 @@ footer {
 }
 
 [data-theme="dark"] h3 {
-  background: #1a1a2e;
+  color: white;
 }
 
 [data-theme="dark"] header {
