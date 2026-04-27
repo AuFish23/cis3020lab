@@ -205,6 +205,21 @@ footer {
 
 /* DARK/LIGHT MODE TOGGLE */
 
+#themeToggle {
+  padding: 8px 16px;
+  border: 1px solid #111;
+  border-radius: 20px;
+  background: transparent;
+  color: #111;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+[data-theme="dark"] #themeToggle {
+  border-color: #fff;
+  color: #fff;
+}
+
 :root {
   --bg: #ffffff;
   --text: #111111;
