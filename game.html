@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brick Breaker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="theme.js"></script>
+  <style>
+    .game-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem 0;
+    }
+
+    .game-meta {
+      display: flex;
+      gap: 2rem;
+      font-family: monospace;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .game-meta span {
+      color: var(--text);
+      font-weight: bold;
+    }
+
+    #gameCanvas {
+      border: 2px solid var(--border);
+      background: var(--surface);
+      display: block;
+      box-shadow: var(--shadow);
+      border-radius: 4px;
+      cursor: none;
+    }
+
+    .game-msg {
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    #startBtn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 2rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: monospace;
+      letter-spacing: 1px;
+      transition: opacity 0.2s;
+    }
+
+    #startBtn:hover {
+      opacity: 0.85;
+    }
+
+    #startBtn:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🎮 Brick Breaker</h1>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="topFive.html">Top Five</a></li>
+    <li><a href="behindTheScenes.html">Behind the Scenes</a></li>
+    <li><a href="QandA.html">Q&amp;A</a></li>
+    <li><a href="fanCreations.html">Fan Creations</a></li>
+    <li><a href="game.html" class="active">🎮 Game</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="game-wrapper">
+    <div class="game-meta">
+      Score: <span id="scoreDisplay">0</span>
+      &nbsp;&nbsp;
+      Lives: <span id="livesDisplay">3</span>
+      &nbsp;&nbsp;
+      Level: <span id="levelDisplay">1</span>
+    </div>
+
+    <canvas id="gameCanvas" width="480" height="320"></canvas>
+
+    <button id="startBtn">▶ START</button>
+    <p class="game-msg">← → Arrow keys or A / D to move &nbsp;|&nbsp; Click canvas to play with mouse</p>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 William Fisher</p>
+</footer>
+
+<script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const startBtn = document.getElementById('startBtn');
+  const scoreEl = document.getElementById('scoreDisplay');
+  const livesEl = document.getElementById('livesDisplay');
+  const levelEl = document.getElementById('levelDisplay');
+
+  const W = canvas.width;
+  const H = canvas.height;
+
+  // ---- CONFIG ----
+  const PADDLE_W = 80, PADDLE_H = 10, PADDLE_Y = H - 30;
+  const BALL_R = 7;
+  const BRICK_ROWS = 4, BRICK_COLS = 8;
+  const BRICK_W = 52, BRICK_H = 16, BRICK_PAD = 6;
+  const BRICK_OFFSET_X = (W - (BRICK_COLS * (BRICK_W + BRICK_PAD) - BRICK_PAD)) / 2;
+  const BRICK_OFFSET_Y = 40;
+
+  const COLORS = ['#e63946','#f4a261','#2a9d8f','#457b9d','#a8dadc'];
+
+  let state = 'idle'; // idle | playing | dead | win
+  let score, lives, level;
+  let ball, paddle, bricks;
+  let keys = {};
+  let animId;
+  let mouseX = null;
+
+  function getComputedColor(varName) {
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  }
+
+  function initGame() {
+    score = 0;
+    lives = 3;
+    level = 1;
+    initLevel();
+    updateHUD();
+  }
+
+  function initLevel() {
+    const speed = 3.5 + (level - 1) * 0.4;
+    ball = {
+      x: W / 2, y: H / 2,
+      vx: speed * (Math.random() > 0.5 ? 1 : -1),
+      vy: -speed
+    };
+    paddle = { x: W / 2 - PADDLE_W / 2, speed: 7 };
+    bricks = [];
+    for (let r = 0; r < BRICK_ROWS; r++) {
+      for (let c = 0; c < BRICK_COLS; c++) {
+        bricks.push({
+          x: BRICK_OFFSET_X + c * (BRICK_W + BRICK_PAD),
+          y: BRICK_OFFSET_Y + r * (BRICK_H + BRICK_PAD),
+          alive: true,
+          color: COLORS[r % COLORS.length]
+        });
+      }
+    }
+  }
+
+  function updateHUD() {
+    scoreEl.textContent = score;
+    livesEl.textContent = lives;
+    levelEl.textContent = level;
+  }
+
+  function update() {
+    // Paddle control
+    if (mouseX !== null) {
+      paddle.x = mouseX - PADDLE_W / 2;
+    } else {
+      if (keys['ArrowLeft'] || keys['a'] || keys['A']) paddle.x -= paddle.speed;
+      if (keys['ArrowRight'] || keys['d'] || keys['D']) paddle.x += paddle.speed;
+    }
+    paddle.x = Math.max(0, Math.min(W - PADDLE_W, paddle.x));
+
+    // Ball movement
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+
+    // Wall bounces
+    if (ball.x - BALL_R < 0) { ball.x = BALL_R; ball.vx *= -1; }
+    if (ball.x + BALL_R > W) { ball.x = W - BALL_R; ball.vx *= -1; }
+    if (ball.y - BALL_R < 0) { ball.y = BALL_R; ball.vy *= -1; }
+
+    // Bottom — lose life
+    if (ball.y + BALL_R > H) {
+      lives--;
+      updateHUD();
+      if (lives <= 0) {
+        state = 'dead';
+        return;
+      }
+      // Reset ball position
+      ball.x = W / 2;
+      ball.y = H / 2;
+      const speed = 3.5 + (level - 1) * 0.4;
+      ball.vx = speed * (Math.random() > 0.5 ? 1 : -1);
+      ball.vy = -speed;
+    }
+
+    // Paddle collision
+    if (
+      ball.y + BALL_R >= PADDLE_Y &&
+      ball.y - BALL_R <= PADDLE_Y + PADDLE_H &&
+      ball.x >= paddle.x &&
+      ball.x <= paddle.x + PADDLE_W &&
+      ball.vy > 0
+    ) {
+      ball.vy *= -1;
+      // Add slight spin based on hit position
+      const hitPos = (ball.x - (paddle.x + PADDLE_W / 2)) / (PADDLE_W / 2);
+      ball.vx = hitPos * 5;
+    }
+
+    // Brick collisions
+    let allDead = true;
+    for (const b of bricks) {
+      if (!b.alive) continue;
+      allDead = false;
+      if (
+        ball.x + BALL_R > b.x &&
+        ball.x - BALL_R < b.x + BRICK_W &&
+        ball.y + BALL_R > b.y &&
+        ball.y - BALL_R < b.y + BRICK_H
+      ) {
+        b.alive = false;
+        ball.vy *= -1;
+        score += 10 * level;
+        updateHUD();
+      }
+    }
+
+    if (allDead) {
+      level++;
+      updateHUD();
+      if (level > 5) {
+        state = 'win';
+      } else {
+        initLevel();
+      }
+    }
+  }
+
+  function draw() {
+    const bg = getComputedColor('--surface');
+    const textColor = getComputedColor('--text');
+    const muted = getComputedColor('--text-muted');
+    const accent = '#e63946';
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Draw bricks
+    for (const b of bricks) {
+      if (!b.alive) continue;
+      ctx.fillStyle = b.color;
+      ctx.beginPath();
+      ctx.roundRect(b.x, b.y, BRICK_W, BRICK_H, 3);
+      ctx.fill();
+    }
+
+    // Draw paddle
+    ctx.fillStyle = textColor;
+    ctx.beginPath();
+    ctx.roundRect(paddle.x, PADDLE_Y, PADDLE_W, PADDLE_H, 5);
+    ctx.fill();
+
+    // Draw ball
+    ctx.fillStyle = accent;
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, BALL_R, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Overlay messages
+    if (state === 'idle') {
+      drawOverlay('BRICK BREAKER', 'Press START to play', muted, textColor);
+    } else if (state === 'dead') {
+      drawOverlay('GAME OVER', `Final Score: ${score}`, accent, textColor);
+      startBtn.textContent = '↺ PLAY AGAIN';
+      startBtn.disabled = false;
+    } else if (state === 'win') {
+      drawOverlay('YOU WIN! 🎉', `Score: ${score}`, '#2a9d8f', textColor);
+      startBtn.textContent = '↺ PLAY AGAIN';
+      startBtn.disabled = false;
+    }
+  }
+
+  function drawOverlay(title, sub, titleColor, textColor) {
+    ctx.fillStyle = 'rgba(0,0,0,0.45)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 28px monospace';
+    ctx.fillStyle = titleColor;
+    ctx.fillText(title, W / 2, H / 2 - 16);
+    ctx.font = '14px monospace';
+    ctx.fillStyle = '#ccc';
+    ctx.fillText(sub, W / 2, H / 2 + 14);
+  }
+
+  function loop() {
+    if (state === 'playing') {
+      update();
+    }
+    draw();
+    animId = requestAnimationFrame(loop);
+  }
+
+  startBtn.addEventListener('click', () => {
+    if (state === 'idle' || state === 'dead' || state === 'win') {
+      initGame();
+      state = 'playing';
+      startBtn.disabled = true;
+      startBtn.textContent = '▶ START';
+    }
+  });
+
+  // Keyboard
+  window.addEventListener('keydown', e => { keys[e.key] = true; });
+  window.addEventListener('keyup', e => { keys[e.key] = false; });
+
+  // Mouse
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+  });
+  canvas.addEventListener('mouseleave', () => { mouseX = null; });
+
+  // Start render loop
+  loop();
+</script>
+
+</body>
+</html>
