@@ -239,11 +239,3 @@ body {
   color: var(--text);
 }
 
-
-/* IMAGE CULLING */
-
-img.lazy {
-    background: #eee;
-    min-height: 200px;
-}
-    
