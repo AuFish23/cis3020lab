@@ -1,14 +1,3 @@
-//Back to top button//
-const btn = document.getElementById('backToTop');
-
-window.addEventListener('scroll', () => {
-  btn.style.opacity = window.scrollY > 300 ? '1' : '0';
-  btn.style.pointerEvents = window.scrollY > 300 ? 'auto' : 'none';
-});
-
-btn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
 
 //Dark and light mode toggle//
 const toggle = document.getElementById('themeToggle');
