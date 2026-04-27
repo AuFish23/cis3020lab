@@ -240,6 +240,11 @@ footer {
   background: #16213e;
 }
 
+[data-theme="dark"] .food-item {
+  background: #16213e;
+}
+
+
 [data-theme="dark"] main {
   background: #0f3460;
   color: #f0f0f0;
