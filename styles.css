@@ -224,6 +224,27 @@ footer {
   color: #fff;
 }
 
+[data-theme="dark"] body {
+  background: #1a1a2e;
+}
+
+[data-theme="dark"] header {
+  background: linear-gradient(90deg, #1a1a2e, #16213e);
+}
+
+[data-theme="dark"] nav {
+  background: #16213e;
+}
+
+[data-theme="dark"] main {
+  background: #0f3460;
+  color: #f0f0f0;
+}
+
+[data-theme="dark"] footer {
+  background: #16213e;
+}
+
 :root {
   --bg: #ffffff;
   --text: #111111;
