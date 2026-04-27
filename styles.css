@@ -228,6 +228,10 @@ footer {
   background: #1a1a2e;
 }
 
+[data-theme="dark"] h3 {
+  background: #1a1a2e;
+}
+
 [data-theme="dark"] header {
   background: linear-gradient(90deg, #1a1a2e, #16213e);
 }
