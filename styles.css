@@ -203,24 +203,6 @@ footer {
 }
 
 
-/* BACK TO TOP */
-
-#backToTop {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #111;
-    color: white;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 999;
-
 /* DARK/LIGHT MODE TOGGLE */
 
  :root {
