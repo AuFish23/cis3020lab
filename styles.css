@@ -259,34 +259,3 @@ body {
   background: var(--bg);
   color: var(--text);
 }
-
-[data-theme="light"] #themeToggle {
-  border-color: #fff;
-  color: #fff;
-}
-
-[data-theme="light"] body {
-  background: #1a1a2e;
-}
-
-[data-theme="light"] header {
-  background: linear-gradient(90deg, #1a1a2e, #16213e);
-}
-
-[data-theme="light"] nav {
-  background: #16213e;
-}
-
-[data-theme="light"] main {
-  background: #0f3460;
-  color: #f0f0f0;
-}
-
-[data-theme="light"] footer {
-  background: #16213e;
-}
-
-[data-theme="light"] {
-  --bg: #111111;
-  --text: #f0f0f0;
-}
