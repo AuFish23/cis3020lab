@@ -1,4 +1,4 @@
-/* ---------------- GLOBAL RESET ---------------- */
+/* GLOBAL RESET */
 
 * {
     margin: 0;
@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-/* ---------------- BODY ---------------- */
+/* BODY  */
 
 body {
     font-family: "Segoe UI", Arial, sans-serif;
@@ -33,7 +33,7 @@ body {
     }
 }
 
-/* ---------------- HEADER ---------------- */
+/*  HEADER  */
 
 header {
     text-align: center;
@@ -61,7 +61,7 @@ header h2 {
     font-weight: normal;
 }
 
-/* ---------------- NAVIGATION ---------------- */
+/* NAVIGATION  */
 
 nav {
     background: #222;
@@ -100,7 +100,7 @@ nav a:hover {
     box-shadow: 0 6px 14px rgba(0,0,0,0.25);
 }
 
-/* ---------------- MAIN CONTENT ---------------- */
+/* MAIN CONTENT */
 
 main {
     flex: 1;
@@ -121,7 +121,7 @@ main p {
     margin-bottom: 20px;
 }
 
-/* ---------------- FOOD GRID ---------------- */
+/*  FOOD GRID  */
 
 .food-list {
     display: grid;
@@ -165,7 +165,7 @@ main p {
     box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
-/* ---------------- FOOTER ---------------- */
+/*  FOOTER  */
 
 footer {
     background: #222;
@@ -180,7 +180,7 @@ footer {
     border-radius: 25px 25px 0 0;
 }
 
-/* ---------------- RESPONSIVE DESIGN ---------------- */
+/* RESPONSIVE DESIGN  */
 
 @media (max-width: 768px) {
 
@@ -201,3 +201,43 @@ footer {
         padding: 20px;
     }
 }
+
+
+/* BACK TO TOP */
+
+#backToTop {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 999;
+
+/* DARK/LIGHT MODE TOGGLE */
+
+ :root {
+    --bg: #ffffff;
+    --text: #111111;
+  }
+  [data-theme="dark"] {
+    --bg: #111111;
+    --text: #f0f0f0;
+  }
+  body { background: var(--bg); color: var(--text); }
+
+
+/* IMAGE CULLING */
+
+img.lazy {
+    background: #eee;
+    min-height: 200px;
+
+    
